@@ -1,4 +1,4 @@
-package br.fundatec.joaodier.finalproject.domain.entity;
+package br.fundatec.joaodier.finalproject.domain.model;
 
 public enum PokemonTypeEnum {
     BUG,

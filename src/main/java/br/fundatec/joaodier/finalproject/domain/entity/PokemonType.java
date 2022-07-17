@@ -3,41 +3,43 @@ package br.fundatec.joaodier.finalproject.domain.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "pokemon_type", schema = "Pokemon")
+@Table(name = "\"PokemonType\"")
 public class PokemonType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(name = "\"Id_Pokemon_Type\"", nullable = false)
+    private Integer id;
 
-    @Column(name = "pokemon_type_desc")
-    private PokemonTypeEnum pokemonTypeDescription;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "\"Id_Pokemon\"", nullable = false)
+    private Pokemon idPokemon;
 
-    @ManyToOne
-    @JoinColumn(name = "pokemon_id")
-    private Pokemon pokemon;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "\"Id_Type\"", nullable = false)
+    private Type idType;
 
-    public Pokemon getPokemon() {
-        return pokemon;
-    }
-
-    public void setPokemon(Pokemon pokemon) {
-        this.pokemon = pokemon;
-    }
-
-    public PokemonTypeEnum getPokemonTypeDescription() {
-        return pokemonTypeDescription;
-    }
-
-    public void setPokemonTypeDescription(PokemonTypeEnum pokemonTypeDesc) {
-        this.pokemonTypeDescription = pokemonTypeDesc;
-    }
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
+
+    public Pokemon getIdPokemon() {
+        return idPokemon;
+    }
+
+    public void setIdPokemon(Pokemon idPokemon) {
+        this.idPokemon = idPokemon;
+    }
+
+    public Type getIdType() {
+        return idType;
+    }
+
+    public void setIdType(Type idType) {
+        this.idType = idType;
+    }
+
 }

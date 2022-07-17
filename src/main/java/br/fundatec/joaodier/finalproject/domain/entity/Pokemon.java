@@ -1,39 +1,37 @@
 package br.fundatec.joaodier.finalproject.domain.entity;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.time.Instant;
 
 @Entity
-@Table(name = "pokemon", schema = "Pokemon")
+@Table(name = "\"Pokemon\"")
 public class Pokemon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(name = "\"Id_Pokemon\"", nullable = false)
+    private Integer id;
 
-    @Column(name = "name", length = 125)
+    @Column(name = "\"Name\"", nullable = false, length = 150)
     private String name;
 
-    @OneToMany(mappedBy = "pokemon", orphanRemoval = true)
-    private Set<PokemonType> pokemonTypes = new LinkedHashSet<>();
+    @Column(name = "\"Height\"", nullable = false)
+    private Integer height;
 
-    public Pokemon(Long id, String name, Set<PokemonType> pokemonTypes) {
+    @Column(name = "\"Weight\"", nullable = false)
+    private Integer weight;
+
+    @Column(name = "\"Created_At\"", nullable = false)
+    private Instant createdAt;
+
+    @Column(name = "\"Deleted_At\"")
+    private Instant deletedAt;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
-        this.name = name;
-        this.pokemonTypes = pokemonTypes;
-    }
-
-    @Deprecated
-    public Pokemon() {
-    }
-
-    public Set<PokemonType> getPokemonTypes() {
-        return pokemonTypes;
-    }
-
-    public void setPokemonTypes(Set<PokemonType> pokemonTypes) {
-        this.pokemonTypes = pokemonTypes;
     }
 
     public String getName() {
@@ -44,12 +42,36 @@ public class Pokemon {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
+    public Integer getHeight() {
+        return height;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(Instant deletedAt) {
+        this.deletedAt = deletedAt;
     }
 
 }

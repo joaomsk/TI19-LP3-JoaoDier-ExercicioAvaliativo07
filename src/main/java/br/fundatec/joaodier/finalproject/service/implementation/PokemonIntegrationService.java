@@ -1,12 +1,13 @@
-package br.fundatec.joaodier.finalproject.service.Implementation;
+package br.fundatec.joaodier.finalproject.service.implementation;
 
-import br.fundatec.joaodier.finalproject.api.handler.exception.NotFoundException;
+import br.fundatec.joaodier.finalproject.api.handler.ExceptionHandlerAdvice;
 import br.fundatec.joaodier.finalproject.domain.vo.PokemonResponseVO;
 import br.fundatec.joaodier.finalproject.service.IPokemonIntegrationService;
-import br.fundatec.joaodier.finalproject.service.dto.PokemonDTO;
+import br.fundatec.joaodier.finalproject.service.dto.PokemonIntegration.PokemonIntegrationDto;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,26 +19,25 @@ public class PokemonIntegrationService implements IPokemonIntegrationService {
     private final RestTemplate restTemplate;
 
     public PokemonIntegrationService(RestTemplateBuilder builder) {
-        this.restTemplate = builder.build();
+        this.restTemplate = builder
+                .errorHandler(new ExceptionHandlerAdvice())
+                .build();
     }
 
-    public PokemonDTO getPokemonByName(String name) {
+    public PokemonIntegrationDto getPokemonByName(String name) {
         String generatedUrl = generateRequestedUrl(name);
 
-        return PokemonDTO.create(getPokeApiResponse(generatedUrl));
+        return PokemonIntegrationDto.create(getPokeApiResponse(generatedUrl));
     }
 
-    public PokemonDTO getPokemonById(Integer id) {
+    public PokemonIntegrationDto getPokemonById(Integer id) {
         String generatedUrl = generateRequestedUrl(id);
 
-        return PokemonDTO.create(getPokeApiResponse(generatedUrl));
+        return PokemonIntegrationDto.create(getPokeApiResponse(generatedUrl));
     }
 
-    private PokemonResponseVO getPokeApiResponse(String param) {
-        PokemonResponseVO response = this.restTemplate.getForObject(param, PokemonResponseVO.class);
-        if (response == null) throw new NotFoundException("Pokemon not found: " + param);
-
-        return response;
+    private ResponseEntity<PokemonResponseVO> getPokeApiResponse(String param) {
+        return this.restTemplate.getForEntity(param, PokemonResponseVO.class);
     }
 
     private @NotNull String generateRequestedUrl(Object param) {

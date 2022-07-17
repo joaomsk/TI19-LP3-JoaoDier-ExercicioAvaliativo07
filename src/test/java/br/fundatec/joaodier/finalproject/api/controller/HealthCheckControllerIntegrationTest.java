@@ -8,7 +8,7 @@ import static org.hamcrest.Matchers.equalTo;
 class HealthCheckControllerIntegrationTest {
 
     @Test
-    void mustRequestForHealthCheckSuccessfully() {
+    void givenRemoteApiCall_whenCallByHealthChecker_thenStatusCode200() {
         given()
                 .when()
                 .get("http://localhost:8080/api/health")

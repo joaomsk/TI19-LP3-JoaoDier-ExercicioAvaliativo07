@@ -1,7 +1,8 @@
 package br.fundatec.joaodier.finalproject.service;
 
-import br.fundatec.joaodier.finalproject.service.dto.PokemonDTO;
+import br.fundatec.joaodier.finalproject.service.dto.PokemonIntegration.PokemonIntegrationDto;
 
 public interface IPokemonIntegrationService {
-    PokemonDTO getPokemonById(Integer id);
+    PokemonIntegrationDto getPokemonById(Integer id);
+    PokemonIntegrationDto getPokemonByName(String name);
 }
